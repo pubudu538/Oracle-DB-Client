@@ -31,26 +31,27 @@ public class OracleClient {
         this.username = username;
         this.password = password;
 
-        getConnection();
-
     }
 
     private Connection getConnection() {
 
-        try {
-            connection = DriverManager.getConnection(
-                    "jdbc:oracle:thin:@" + host + ":" + port + ":" + dbName, username,
-                    password);
-            connection.setAutoCommit(true);
+        if (connection == null) {
+            try {
+                connection = DriverManager.getConnection(
+                        "jdbc:oracle:thin:@" + host + ":" + port + ":" + dbName, username,
+                        password);
+                connection.setAutoCommit(true);
 
-        } catch (SQLException e) {
-            log.error("Connection Failed! Check output console - " + e.getMessage(), e);
-        }
+            } catch (SQLException e) {
+                log.error("Connection Failed! Check output console - " + e.getMessage(), e);
+            }
 
-        if (connection != null) {
-            log.info("Successfully created connection!!! [Connection Name] - " + connectionName + "");
-        } else {
-            log.error("Failed to make connection!");
+            if (connection != null) {
+                log.info("Successfully created connection!!! [Connection Name] - " + connectionName + "");
+            } else {
+                log.error("Failed to make connection!");
+            }
+
         }
 
         return connection;
@@ -78,7 +79,7 @@ public class OracleClient {
         } catch (SQLException e) {
             log.error("Could not query results - " + e.getMessage(), e);
         } finally {
-            log.info("Data - " + data);
+            log.info("[Connection Name] " + connectionName + " [Data] - " + data);
             try {
                 if (smt != null) {
                     smt.close();

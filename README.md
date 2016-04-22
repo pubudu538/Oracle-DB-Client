@@ -15,6 +15,7 @@ password=<Password>
 table_name=<Any table name that is in the mentioned DB>
 number_of_connections=<Number of connections to connect to the db>
 column_name=<Any valid column name of the mentioned table>
+sleep_time=<Sleep time for querying data> (Specify in milli seconds)
 
 2. Go to oracle-db-test-1.0.0-SNAPSHOT/bin folder and execute run.sh bash file.
 

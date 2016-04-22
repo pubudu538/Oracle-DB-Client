@@ -23,6 +23,7 @@ public class Main {
     private static String tableName;
     private static String columnName;
     private static Integer numberOfConnections;
+    private static Integer sleepTime;
     private static Log log = LogFactory.getLog(Main.class);
 
     public static void main(String[] argv) {
@@ -44,23 +45,26 @@ public class Main {
 
         for (int i = 0; i < numberOfConnections; i++) {
             String connectionName = "Conn_";
-            clientList.add(new OracleClient(connectionName+i, host, port, dbName, username, password));
+            clientList.add(new OracleClient(connectionName + i, host, port, dbName, username, password));
         }
 
 
         while (true) {
-            log.info("Waiting..");
 
             for (int i = 0; i < numberOfConnections; i++) {
-                clientList.get(i).queryValues(tableName,columnName);
-                clientList.get(i).closeConnections();
+                clientList.get(i).queryValues(tableName, columnName);
+                //clientList.get(i).closeConnections();
             }
+
+            log.info("Waiting for " + sleepTime + " milli seconds...");
+
             try {
-                Thread.sleep(5000);
+                Thread.sleep(sleepTime);
             } catch (InterruptedException e) {
                 log.error(e);
                 e.printStackTrace();
             }
+
         }
     }
 
@@ -81,6 +85,7 @@ public class Main {
             tableName = prop.getProperty("table_name");
             numberOfConnections = Integer.parseInt(prop.getProperty("number_of_connections"));
             columnName = prop.getProperty("column_name");
+            sleepTime = Integer.parseInt(prop.getProperty("sleep_time"));
 
         } catch (IOException ex) {
             ex.printStackTrace();
