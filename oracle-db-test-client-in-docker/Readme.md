@@ -1,7 +1,8 @@
 -------- Building the Docker Image -----------
 
-1. Copy jdk-7u80-linux-x64.tar.gz pack to packages folder in Home location.
-2. Run bash build.sh to build the docker Image
+1. Create a folder call packages within the home folder.
+2. Copy jdk-7u80-linux-x64.tar.gz pack to packages folder in Home location.
+3. Run bash build.sh to build the docker Image
 
 
 ---------- Running the docker Container ----------
