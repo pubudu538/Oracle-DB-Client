@@ -33,4 +33,6 @@ properties="-Dlog4j.properties.file.path=${script_path}/../conf/log4j.properties
 #debug="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005"
 
 
-java -cp "${class_path}" ${properties} ${debug} db.Main $*
+nohup java -cp "${class_path}" ${properties} ${debug} db.Main $* > /dev/null 2>&1 & echo $! > run.pid &
+
+#java -cp "${class_path}" ${properties} ${debug} db.Main $*
